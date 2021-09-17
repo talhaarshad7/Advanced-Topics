@@ -58,26 +58,27 @@ void solve()
 {
     int n, m;
     cin >> n >> m;
-    unordered_map<int, int> m;
+    unordered_map<int, int> mp;
     for (int i = 0; i < n; i++)
     {
         int x, u;
         cin >> x >> u;
-        m[x * u]++;
+        mp[x * u]++;
     }
     int ans = 0;
     for (int i = 0; i < m; i++)
     {
         int y, v;
         cin >> y >> v;
-        if (m.count(y * v) > 0)
+        if (mp.count(y * v) > 0)
         {
             ans++;
-            m[y * v]--;
-            if (m[y * v] == 0)
-                m.erase(y * v);
+            mp[y * v]--;
+            if (mp[y * v] == 0)
+                mp.erase(y * v);
         }
     }
+    cout << ans << endl;
 }
 int main()
 {
