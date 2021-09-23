@@ -83,6 +83,7 @@ void solve()
     for (auto i : ans)
         cout << i << " ";
     cout << endl;
+    //Optimised a bit;
 }
 int main()
 {
