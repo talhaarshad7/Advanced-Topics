@@ -7,7 +7,7 @@ int binary_exponentiation(int a, int b, int mod = 1e9 + 7)
     while (b)
     {
         if (b % 2)
-            ans = ans * a % mod;
+            ans = (1LL * ans * a) % mod;
         a = a * a % mod;
         b /= 2;
     }
