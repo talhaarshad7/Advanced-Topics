@@ -6,10 +6,10 @@ int binary_exponentiation(int a, int b, int mod = 1e9 + 7)
     int ans = 1;
     while (b)
     {
-        if (b % 2)
-            ans = (1LL * ans * a) % mod;
-        a = a * a % mod;
-        b /= 2;
+        if (b % 2)                       //gets the last bit
+            ans = (1LL * ans * a) % mod; //multiply the a if last bit is 1 else not
+        a = 1LL * a * a % mod;
+        b /= 2; //deleting last bit
     }
     return ans;
 }
