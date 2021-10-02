@@ -21,7 +21,7 @@ lli binary_exponentiation2(lli a, lli b, lli mod = 1e9 + 7)
         if (b % 2)                 //gets the last bit
             ans = (ans * a) % mod; //multiply the a if last bit is 1 else not
         a = a * a % mod;
-        b /= 2; //deleting last bit
+        b = b >> 1; //deleting last bit
     }
     return ans;
 }
