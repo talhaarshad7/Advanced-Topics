@@ -3,6 +3,7 @@ using namespace std;
 #include <bits/stdc++.h>
 bool isPrime(int n)
 {
+    //optimezed more
     int c = 0;
     for (int i = 1; i <= sqrt(n); i++)
     {
