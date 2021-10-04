@@ -2,6 +2,7 @@
 using namespace std;
 vector<long long> getPrimeFactors(long long n)
 {
+    //done some changes
     vector<long long> ans;
     while (n % 2 == 0)
     {
