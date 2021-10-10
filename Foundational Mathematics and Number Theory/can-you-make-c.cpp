@@ -56,6 +56,7 @@ double eps = 1e-12;
 
 void solve()
 {
+    //optimized more
     int a, b, c;
     cin >> a >> b >> c;
     long long gcd = __gcd(a, b);
