@@ -34,6 +34,7 @@ typedef vector<vector<ll>> vv64;
 typedef vector<vector<p64>> vvp64;
 typedef vector<p64> vp64;
 typedef vector<p32> vp32;
+ll MOD = 998244353;
 ll mod = 1e9 + 7;
 double eps = 1e-12;
 #define forn(i, e) for (ll i = 0; i < e; i++)
@@ -53,22 +54,26 @@ double eps = 1e-12;
     cout.tie(NULL)
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
+
 inline void add(int &a, int b)
 {
     a += b;
     if (a >= mod)
         a -= mod;
 }
+
 inline void sub(int &a, int b)
 {
     a -= b;
     if (a < 0)
         a += mod;
 }
+
 inline int mul(int a, int b)
 {
-    return (long long)a * b % mod;
+    return (int)((long long)a * b % mod);
 }
+
 inline int power(int a, long long b)
 {
     int res = 1;
@@ -78,11 +83,12 @@ inline int power(int a, long long b)
         {
             res = mul(res, a);
         }
-        a = mul(a * a);
+        a = mul(a, a);
         b >>= 1;
     }
     return res;
 }
+
 inline int inv(int a)
 {
     a %= mod;
@@ -102,13 +108,32 @@ inline int inv(int a)
         u += mod;
     return u;
 }
+
+const int N = 200010;
+
+int fact[N];
+
+void pre()
+{
+    fact[0] = 1;
+    for (int i = 1; i < N; i++)
+        fact[i] = mul(fact[i - 1], i);
+    return;
+}
+
 void solve()
 {
     int n;
     cin >> n;
-    long long res = mul(n, n - 1);
+    int res = mul(n, n - 1);
     res = mul(res, inv(2));
     sub(res, n);
+    int res2 = mul(n, n - 1);
+    res2 = mul(res2, n - 2);
+    res2 = mul(res2, n - 3);
+    res2 = mul(res2, inv(24));
+    add(res, res2);
+    cout << res + 1 << endl;
 }
 int main()
 {
