@@ -63,7 +63,10 @@ int ans(vector<int> a, int l, int r)
     if (r - l == 1)
     {
         if (a[l] > a[r])
+        {
+            swap(a[l], a[r]);
             return 1;
+        }
         return 0;
     }
     else
