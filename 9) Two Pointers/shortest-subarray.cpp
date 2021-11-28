@@ -54,47 +54,58 @@ double eps = 1e-12;
     cout.tie(NULL)
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
+int cnt = 0;
 int freq[1000100];
-int cntdiff;
 void insert(int x)
 {
     freq[x]++;
     if (freq[x] == 1)
-        cntdiff++;
+        cnt++;
 }
 void remove(int x)
 {
     freq[x]--;
     if (freq[x] == 0)
-        cntdiff--;
+        cnt--;
 }
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
+    int n;
+    cin >> n;
     int a[n];
     for (int i = 0; i < n; i++)
         cin >> a[i];
+    unordered_map<int, int> m;
+    int c = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (m.count(a[i]) > 0)
+            continue;
+        c++;
+        m[a[i]]++;
+    }
     int head = -1;
     int tail = 0;
-    int ans = 0;
+    int ans = n;
     while (tail < n)
     {
-        while ((head + 1 < n) && ((cntdiff < k && freq[a[head + 1]] == 0) || (cntdiff <= k && freq[a[head + 1]] > 0)))
+        while (head + 1 < n && (cnt < c))
         {
             head++;
             insert(a[head]);
         }
-        ans += head - tail + 1;
-        if (head >= tail)
+        if (cnt == c)
+            ans = min(ans, head - tail + 1);
+        if (head < tail)
         {
             remove(a[tail]);
             tail++;
+            head = tail - 1;
         }
         else
         {
+            remove(a[tail]);
             tail++;
-            head = tail - 1;
         }
     }
     cout << ans << endl;

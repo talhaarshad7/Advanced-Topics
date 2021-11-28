@@ -55,18 +55,18 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
 int freq[1000100];
-int cntdiff;
+int penalty = 0;
 void insert(int x)
 {
     freq[x]++;
     if (freq[x] == 1)
-        cntdiff++;
+        penalty++;
 }
 void remove(int x)
 {
     freq[x]--;
     if (freq[x] == 0)
-        cntdiff--;
+        penalty--;
 }
 void solve()
 {
@@ -74,28 +74,22 @@ void solve()
     cin >> n >> k;
     int a[n];
     for (int i = 0; i < n; i++)
-        cin >> a[i];
-    int head = -1;
-    int tail = 0;
-    int ans = 0;
-    while (tail < n)
     {
-        while ((head + 1 < n) && ((cntdiff < k && freq[a[head + 1]] == 0) || (cntdiff <= k && freq[a[head + 1]] > 0)))
-        {
-            head++;
-            insert(a[head]);
-        }
-        ans += head - tail + 1;
-        if (head >= tail)
-        {
-            remove(a[tail]);
-            tail++;
-        }
-        else
-        {
-            tail++;
-            head = tail - 1;
-        }
+        cin >> a[i];
+    }
+    int head = 0, tail = 0;
+    int ans = k;
+    while (head < k)
+    {
+        insert(a[head]);
+        head++;
+    }
+    ans = min(penalty, ans);
+    for (int i = head; i < n; i++)
+    {
+        remove(a[i - k]);
+        insert(a[i]);
+        ans = min(penalty, ans);
     }
     cout << ans << endl;
 }
