@@ -57,30 +57,44 @@ double eps = 1e-12;
 
 void solve()
 {
-    int n;
-    n = INT_MAX;
-    int is_prime[n + 1];
-    for (int i = 2; i <= n; i++)
-        is_prime[i] = 1;
-    for (int i = 2; i <= n; i++)
+    int n, L;
+    cin >> n >> L;
+    vector<pair<int, int>> v;
+    for (int i = 0; i < n; i++)
     {
-        for (long long j = 1LL * i * i; j <= n; j += i)
+        int x, y;
+        cin >> x >> y;
+        v.push_back({x, y});
+    }
+    map<int, int> m;
+    for (auto i : v)
+        m[i.first] = max(m[i.first], i.second);
+    int ans = 0, last = 0, maxi = 0;
+    for (auto it : m)
+    {
+        if (it.first == last)
         {
-            is_prime[j] = 0;
+            maxi = max(it.second, maxi);
+            last = maxi;
+            ans++;
         }
+        if (it.first > last)
+        {
+            last = maxi;
+            ans++;
+        }
+        maxi = max(it.second, maxi);
     }
-    for (int i = 2; i <= n; i++)
-    {
-        if (is_prime[i])
-            cout << i << " ";
-    }
+    if (last < L)
+        ans++;
+    cout << ans << endl;
 }
 int main()
 {
     fast_cin();
-    ll t;
-    cin >> t;
-    for (int it = 1; it <= t; it++)
+    // ll t;
+    // cin >> t;
+    for (int it = 1; it <= 1; it++)
     {
         //cout << "Case #" << it+1 << ": ";
         solve();
