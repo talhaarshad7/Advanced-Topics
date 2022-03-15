@@ -54,33 +54,36 @@ double eps = 1e-12;
     cout.tie(NULL)
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
-int dp[101][101][101];
-int arr[501];
-int rec(int l, int r, int k)
+int n;
+int a[501];
+int dp[501][501];
+int rec(int l, int r)
 {
-    if (l > r)
+    if (l == r)
         return 0;
-    if (dp[l][r][k] == -1)
+    if (dp[l][r] == -1)
     {
-        int ans = (k + 1) * (k + 1) + rec(l + 1, r, k);
+        int tot = 0;
         for (int i = l; i <= r; i++)
+            tot += a[i];
+        int ans = INT_MAX;
+        int sum = 0;
+        for (int mid = l; mid < r; mid++)
         {
-            if (arr[i] == arr[l])
-            {
-                ans = max(ans, rec(l + 1, i - 1, k) + rec(i, r, k + 1));
-            }
+            sum += a[mid];
+            ans = min(ans, rec(l, mid) + rec(mid + 1, r) + (sum % 100) * (tot - sum) % 100);
         }
-        dp[l][r][k] = ans;
+        dp[l][r] = ans;
     }
-    return dp[l][r][k];
+    return dp[l][r];
 }
 void solve()
 {
-    int n;
     cin >> n;
+    memset(dp, -1, sizeof(dp));
     for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    cout << rec(0, n - 1, 0) << endl;
+        cin >> a[i];
+    cout << rec(0, n - 1) << endl;
 }
 int main()
 {
