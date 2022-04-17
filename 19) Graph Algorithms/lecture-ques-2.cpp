@@ -57,15 +57,20 @@ double eps = 1e-12;
 
 vector<vector<int>> g;
 vector<int> vis;
-
-void dfs(int node,int comp)
+bool isBipartite;
+void dfs(int node,int color)
 {
-    vis[node]=comp;
+    vis[node]=color;
     for(auto v:g[node])
     {
-        if(!vis[v])
+        if(vis[v]==0)
         {
-            dfs(v,comp);
+            dfs(v,3-color);
+        }
+        else
+        {
+            if(vis[v]==vis[node])
+            isBipartite=false;
         }
     }
 }
@@ -75,7 +80,6 @@ void solve()
     cin>>n>>m;
     g.clear();
     g.resize(n+1);
-    vis.assign(n+1,0);
     for(int i=0;i<m;i++)
     {
         int x,y;
@@ -83,25 +87,14 @@ void solve()
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    int comp=0;
+    vis.assign(n+1,0);
+    isBipartite=true;
     for(int i=1;i<=n;i++)
     {
-        comp++;
-        dfs(i,comp);
+        if(vis[i]==0)
+        dfs(i,1);
     }
-    int a[comp+1];
-    memset(a,comp+1,0);
-    for(int i=1;i<=n;i++)
-    a[vis[i]]++;
-    ll ans=0;
-    ll sum=0;
-    for(int i=1;i<=n;i++)
-    {
-        ans+=a[i]*sum;
-        sum+=a[i];
-    }
-    cout<<ans<<endl;
-
+    cout<<boolalpha<<isBipartite<<endl;
 }
 int main()
 {
