@@ -124,7 +124,7 @@ void solve()
         // g[a].push_back({b,c});
         edgelist.push_back({c, {a, b}});
     }
-    int mst_cost = 0;
+    int mst_cost = 0, cnt = 0;
     sort(edgelist.begin(), edgelist.end());
     for (auto v : edgelist)
     {
@@ -132,9 +132,15 @@ void solve()
         int y = v.second.second;
         if (uf.find(x) != uf.find(y))
         {
+            cnt++;
             mst_cost += v.first;
             uf.merge(x, y);
         }
+    }
+    if (cnt != n - 1)
+    {
+        cout << "NO Solution not connected" << endl;
+        return;
     }
     cout << mst_cost << endl;
 }
