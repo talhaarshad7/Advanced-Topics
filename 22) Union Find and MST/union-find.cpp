@@ -15,7 +15,7 @@ struct UnionFind
     int find(int x)
     {
         if (x != parent[x])
-            parent[x] = find(parent[x]);
+            return parent[x] = find(parent[x]);
         return x;
     }
     void merge(int x, int y)
